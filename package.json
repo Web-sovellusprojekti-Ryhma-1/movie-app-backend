@@ -1,0 +1,23 @@
+{
+  "name": "movie-app-backend",
+  "version": "0.1.0",
+  "description": "Backend REST API for Movie App",
+  "keywords": [
+    "backend"
+  ],
+  "homepage": "https://github.com/Web-sovellusprojekti-Ryhma-1/movie-app-backend#readme",
+  "bugs": {
+    "url": "https://github.com/Web-sovellusprojekti-Ryhma-1/movie-app-backend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Web-sovellusprojekti-Ryhma-1/movie-app-backend.git"
+  },
+  "license": "UNLICENSED",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
