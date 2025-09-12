@@ -2,6 +2,8 @@ import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import { pool } from './Helpers/db.js'
+import errorHandler from './Helpers/errorHandler.js'
+import userRouter from './Routes/userRouter.js'
 
 dotenv.config()
 
@@ -15,6 +17,10 @@ app.use(cors())
 app.get('/', (req, res) => {
     res.status(200).json({result: "Success"})
 })
+
+app.use('/users', userRouter)
+
+app.use(errorHandler)
 
 // Test database connection
 app.get("/db", async(req, res) => {
