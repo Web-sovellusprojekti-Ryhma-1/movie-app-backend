@@ -4,8 +4,16 @@ const selectAllUsers = async () => {
     return await pool.query('SELECT * FROM users')
 }
 
+const selectUserById = async (id) => {
+    return await pool.query('SELECT * FROM users WHERE id = $1', [id])
+}
+
+const selectUserByEmail = async (email) => {
+    return await pool.query('SELECT * FROM users WHERE email = $1', [email])
+}
+
 const insertUsers = async (username, email, password) => {
     return await pool.query('insert into users (username, email, password) values ($1, $2, $3) returning *', [username, email, password])
 }
 
-export { selectAllUsers, insertUsers }
+export { selectAllUsers, selectUserById, selectUserByEmail, insertUsers }
