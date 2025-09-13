@@ -1,9 +1,10 @@
 import { Router } from 'express'
 import { getUsers, createUser, signInUser } from '../Controllers/userController.js'
+import { auth } from '../Helpers/authorization.js'
 
 const router = Router()
 
-router.get("/", getUsers)
+router.get("/", auth, getUsers)
 
 router.post("/", createUser)
 

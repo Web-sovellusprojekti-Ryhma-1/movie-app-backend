@@ -2,6 +2,10 @@ import { selectAllUsers, selectUserByEmail, insertUsers } from "../Models/userMo
 import handleResponse from "../Helpers/responseHandler.js"
 import { compare, hash } from "bcrypt"
 import { ApiError } from "../Helpers/ApiError.js"
+import jwt from "jsonwebtoken"
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const getUsers = async (req, res,next) => {
     try {
@@ -42,10 +46,13 @@ const signInUser = async (req, res,next) => {
             throw new ApiError("Invalid email or password", 401)
         }
 
+        const token = jwt.sign({ user: dbUser.email }, process.env.JWT_SECRET_KEY)
+
         const userResult = {
             id: dbUser.id,
             username: dbUser.username,
             email: dbUser.email,
+            token,
         }
 
         handleResponse(res, 200, "Login successful", userResult)
