@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { getUsers, signUpUser, signInUser } from '../Controllers/userController.js'
+import { getUsers, signUpUser, signInUser, deleteCurrentUser } from '../Controllers/userController.js'
 import { auth } from '../Helpers/authorization.js'
 import { validateUser } from '../Helpers/userInputValidation.js'
 
@@ -15,12 +15,14 @@ router.post("/signup", validateUser, signUpUser)
 
 router.post("/signin", signInUser)
 
+router.delete("/deletecurrentuser", auth, deleteCurrentUser)
+
 /*
 router.get("/:id", getUserById)
 
 router.put("/:id", updateUserById)
 
-router.delete("/:id", deleteUserById)
+
 */
 
 export default router

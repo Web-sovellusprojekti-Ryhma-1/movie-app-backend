@@ -12,8 +12,12 @@ const selectUserByEmail = async (email) => {
     return await pool.query('SELECT * FROM users WHERE email = $1', [email])
 }
 
-const insertUsers = async (username, email, password) => {
-    return await pool.query('insert into users (username, email, password) values ($1, $2, $3) returning *', [username, email, password])
+const insertUser = async (username, email, password) => {
+    return await pool.query('INSERT INTO users (username, email, password) VALUES ($1, $2, $3) returning *', [username, email, password])
 }
 
-export { selectAllUsers, selectUserById, selectUserByEmail, insertUsers }
+const deleteUserByEmail = async (email) => {
+    return await pool.query('DELETE FROM users WHERE email = $1 returning *', [email])
+}
+
+export { selectAllUsers, selectUserById, selectUserByEmail, insertUser, deleteUserByEmail }
