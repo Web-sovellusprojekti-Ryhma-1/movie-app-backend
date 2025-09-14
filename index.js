@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
     res.status(200).json({result: "Success"})
 })
 
-app.use('/users', userRouter)
+app.use('/', userRouter)
 
 app.use(errorHandler)
 

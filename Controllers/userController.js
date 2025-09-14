@@ -7,7 +7,7 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-const getUsers = async (req, res,next) => {
+const getUsers = async (req, res, next) => {
     try {
         const result = await selectAllUsers()
         handleResponse(res, 200, "All users returned successfully", result)
@@ -16,12 +16,19 @@ const getUsers = async (req, res,next) => {
     }
 }
 
-const createUser = async (req, res,next) => {
+const signUpUser = async (req, res,next) => {
     const { user } = req.body
     try {
         const hashedpassword = await hash(user.password, 10)
         const result = await insertUsers(user.username, user.email, hashedpassword)
-        handleResponse(res, 201, "User created successfully", result)
+
+        const userResult = {
+            id: user.id,
+            username: user.username,
+            email: user.email,
+        }
+
+        handleResponse(res, 201, "User created successfully", userResult)
     } catch (error) {
         return next(error)
     }
@@ -46,7 +53,7 @@ const signInUser = async (req, res,next) => {
             throw new ApiError("Invalid email or password", 401)
         }
 
-        const token = jwt.sign({ user: dbUser.email }, process.env.JWT_SECRET_KEY)
+        const token = jwt.sign({ id: dbUser.id, username: dbUser.username, email: dbUser.email  }, process.env.JWT_SECRET_KEY)
 
         const userResult = {
             id: dbUser.id,
@@ -61,4 +68,4 @@ const signInUser = async (req, res,next) => {
     }
 }
 
-export { getUsers, createUser, signInUser }
+export { getUsers, signUpUser, signInUser }

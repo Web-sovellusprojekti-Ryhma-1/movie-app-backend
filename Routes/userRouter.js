@@ -1,12 +1,17 @@
 import { Router } from 'express'
-import { getUsers, createUser, signInUser } from '../Controllers/userController.js'
+import { getUsers, signUpUser, signInUser } from '../Controllers/userController.js'
 import { auth } from '../Helpers/authorization.js'
+import { validateUser } from '../Helpers/userInputValidation.js'
 
 const router = Router()
 
-router.get("/", auth, getUsers)
+router.get("/users", auth, getUsers)
 
-router.post("/", createUser)
+router.get("/profile", auth, (req, res) => {
+    res.json({ id: req.user.id, username: req.user.username, email: req.user.email})
+})
+
+router.post("/signup", validateUser, signUpUser)
 
 router.post("/signin", signInUser)
 
