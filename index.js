@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import { pool } from './Helpers/db.js'
 import errorHandler from './Helpers/errorHandler.js'
 import userRouter from './Routes/userRouter.js'
+import apirouter from './apis/tmdbapi.js'
 
 dotenv.config()
 
@@ -17,6 +18,8 @@ app.use(cors())
 app.get('/', (req, res) => {
     res.status(200).json({result: "Success"})
 })
+
+app.use('/api', apirouter)
 
 app.use('/', userRouter)
 
