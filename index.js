@@ -5,6 +5,7 @@ import { pool } from './Helpers/db.js'
 import errorHandler from './Helpers/errorHandler.js'
 import userRouter from './Routes/userRouter.js'
 import apirouter from './apis/tmdbapi.js'
+import finnkinoRouter from './apis/finnkinoapi.js'
 
 dotenv.config()
 
@@ -19,7 +20,8 @@ app.get('/', (req, res) => {
     res.status(200).json({result: "Success"})
 })
 
-app.use('/api', apirouter)
+app.use('/api/tmdb', apirouter) // tmdb api
+app.use('/api/finnkino', finnkinoRouter) // finnkino api
 
 app.use('/', userRouter)
 
