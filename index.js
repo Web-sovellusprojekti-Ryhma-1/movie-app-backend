@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
 app.use('/api/tmdb', apirouter) // tmdb api
 app.use('/api/finnkino', finnkinoRouter) // finnkino api
 
-app.use('/', userRouter)
+app.use('/user', userRouter)
 
 app.use(errorHandler)
 

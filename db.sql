@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS group_members (
 
 -- Group showtimes table
 CREATE TABLE IF NOT EXISTS group_showtimes (
-    showtime_id BIGINT GENERATED ALWAYS AS IDENTITY,
+    id BIGINT GENERATED ALWAYS AS IDENTITY,
     group_id BIGINT NOT NULL,
     finnkino_db_id BIGINT NOT NULL,
     area_id INTEGER NOT NULL, 
