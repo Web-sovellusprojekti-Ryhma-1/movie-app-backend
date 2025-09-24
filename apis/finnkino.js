@@ -1,5 +1,5 @@
 import express from 'express';
-import fetch from 'node-fetch';
+//import fetch from 'node-fetch';
 import { XMLParser } from 'fast-xml-parser';
 
 const finnkinoRouter = express.Router();
