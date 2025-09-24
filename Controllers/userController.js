@@ -1,4 +1,4 @@
-import { selectAllUsers, selectUserByEmail, insertUser, deleteUserByEmail } from "../Models/userModel.js"
+import { selectAllUsers, selectUserByEmail, insertUser, deleteUserByEmail, selectUserById } from "../Models/userModel.js"
 import handleResponse from "../Helpers/responseHandler.js"
 import { compare, hash } from "bcrypt"
 import { ApiError } from "../Helpers/ApiError.js"
@@ -7,10 +7,20 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-const getUsers = async (req, res, next) => {
+const getUserById = async (req, res, next) => {
+    const { id } = req.params
     try {
-        const result = await selectAllUsers()
-        handleResponse(res, 200, "All users returned successfully", result)
+        const result = await selectUserById(id)
+
+        const dbUser = result.rows[0]
+
+        const showResult = {
+            id: dbUser.id,
+            username: dbUser.username,
+            email: dbUser.email,
+        }
+
+        handleResponse(res, 200, "User returned successfully", showResult)
     } catch (error) {
         return next(error)
     }
@@ -25,9 +35,9 @@ const signUpUser = async (req, res,next) => {
         const dbUser = result.rows[0]
 
         const showResult = {
-            id: user.id,
-            username: user.username,
-            email: user.email,
+            id: dbUser.id,
+            username: dbUser.username,
+            email: dbUser.email,
         }
 
         handleResponse(res, 201, "User created successfully", showResult)
@@ -96,4 +106,4 @@ const deleteCurrentUser = async (req, res, next) => {
     }
 }
 
-export { getUsers, signUpUser, signInUser, deleteCurrentUser }
+export { getUserById, signUpUser, signInUser, deleteCurrentUser }

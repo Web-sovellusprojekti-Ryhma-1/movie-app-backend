@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { getUsers, signUpUser, signInUser, deleteCurrentUser } from '../Controllers/userController.js'
+import { getUserById, signUpUser, signInUser, deleteCurrentUser } from '../Controllers/userController.js'
 import { getUserFavorites, postCurrentUserFavorite, deleteCurrentUserFavorite } from '../Controllers/favoriteController.js'
 import { auth } from '../Helpers/authorization.js'
 import { validateUser } from '../Helpers/userInputValidation.js'
@@ -8,9 +8,7 @@ const router = Router()
 
 
 // Users
-router.get("/:id", (req, res) => {
-    
-})
+router.get("/:id", getUserById)
 
 router.post("/signup", validateUser, signUpUser)
 
