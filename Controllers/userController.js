@@ -15,7 +15,6 @@ const getUserById = async (req, res, next) => {
         const dbUser = result.rows[0]
 
         const showResult = {
-            id: dbUser.id,
             username: dbUser.username,
             email: dbUser.email,
         }

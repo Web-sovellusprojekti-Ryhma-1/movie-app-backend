@@ -11,8 +11,27 @@ const router = Router()
 router.get("/:id", getUserById)
 
 router.post("/signup", validateUser, signUpUser)
+/*
+Request body should look like this:
+{
+    "user": {
+        "username": "myusername"
+        "email": "myemail"
+        "password": "mypassword"
+    }
+}
+*/
 
 router.post("/signin", signInUser)
+/*
+Request body should look like this:
+{
+    "user": {
+        "email": "myemail"
+        "password": "mypassword"
+    }
+}
+*/
 
 router.delete("/deletecurrentuser", auth, deleteCurrentUser)
 
@@ -38,5 +57,29 @@ Request body should look like this:
 }
 */
 
+/*
+
+// Reviews
+router.get("/:id/reviews", getUserReviews)
+
+router.post("/reviews", auth, postCurrentUserFavorite)
+// User needs to be logged in
+/*
+Request body should look like this:
+{
+    "tmdb_id": "99"
+}
+*/
+
+/*
+
+router.delete("/reviews", auth, deleteCurrentUserFavorite)
+// User needs to be logged in
+/*
+Request body should look like this:
+{
+    "tmdb_id": "99"
+}
+*/
 
 export default router
