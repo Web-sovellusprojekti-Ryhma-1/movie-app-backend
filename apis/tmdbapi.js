@@ -1,5 +1,5 @@
 import express from "express";
-//import fetch from "node-fetch";
+import fetch from "node-fetch";
 
 const apirouter = express.Router()
 const TMDB_BEARER = process.env.TMDB_BEARER // .env tiedostoon tmdb:ltä saatava bearer token

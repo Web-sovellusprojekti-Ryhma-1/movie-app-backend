@@ -5,7 +5,7 @@ import { pool } from './Helpers/db.js'
 import errorHandler from './Helpers/errorHandler.js'
 import userRouter from './Routes/userRouter.js'
 import apirouter from './apis/tmdbapi.js'
-import finnkinoRouter from './apis/finnkino.js'
+import finnkinoRouter from './apis/finnkinoapi.js'
 
 dotenv.config()
 
