@@ -6,6 +6,7 @@ import errorHandler from './Helpers/errorHandler.js'
 import userRouter from './Routes/userRouter.js'
 import apirouter from './apis/tmdbapi.js'
 import finnkinoRouter from './apis/finnkinoapi.js'
+import groupRouter from './Routes/groupRouter.js'
 
 dotenv.config()
 
@@ -24,6 +25,8 @@ app.use('/api/tmdb', apirouter) // tmdb api
 app.use('/api/finnkino', finnkinoRouter) // finnkino api
 
 app.use('/api/user', userRouter)
+
+app.use('/api/group', groupRouter)
 
 app.use(errorHandler)
 
