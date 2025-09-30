@@ -26,7 +26,7 @@ const postCurrentUserFavorite = async (req, res,next) => {
 
 // Only logged in user can delete favorites from their own account
 const deleteCurrentUserFavorite = async (req, res, next) => {
-    const { tmdb_id } = req.body
+    const { tmdb_id } = req.params
     try {
         const result = await deleteFavorite(req.user.id, tmdb_id)
 

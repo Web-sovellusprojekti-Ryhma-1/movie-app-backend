@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import { getUserById, signUpUser, signInUser, deleteCurrentUser } from '../Controllers/userController.js'
 import { getUserFavorites, postCurrentUserFavorite, deleteCurrentUserFavorite } from '../Controllers/favoriteController.js'
+import { deleteCurrentUserReview, getMovieReviews, getUserReviews, postCurrentUserReview } from '../Controllers/reviewController.js'
 import { auth } from '../Helpers/authorization.js'
 import { validateUser } from '../Helpers/userInputValidation.js'
 
@@ -48,38 +49,35 @@ Request body should look like this:
 }
 */
 
-router.delete("/favorites", auth, deleteCurrentUserFavorite)
+router.delete("/favorites/:id", auth, deleteCurrentUserFavorite)
 // User needs to be logged in
-/*
-Request body should look like this:
-{
-    "tmdb_id": "99"
-}
-*/
 
-/*
+
+
 
 // Reviews
 router.get("/:id/reviews", getUserReviews)
 
-router.post("/reviews", auth, postCurrentUserFavorite)
+
+router.post("/reviews", auth, postCurrentUserReview)
 // User needs to be logged in
 /*
 Request body should look like this:
 {
-    "tmdb_id": "99"
+    "review": {
+        "title": "Movie Title",
+        "body": "My review of the movie",
+        "rating": 3,
+        "tmdb_id": "99"
+    }
+    
 }
 */
 
-/*
-
-router.delete("/reviews", auth, deleteCurrentUserFavorite)
+router.delete("/reviews/:id", auth, deleteCurrentUserReview)
 // User needs to be logged in
-/*
-Request body should look like this:
-{
-    "tmdb_id": "99"
-}
-*/
+
+
+router.get("/movie/:id/reviews", getMovieReviews)
 
 export default router
