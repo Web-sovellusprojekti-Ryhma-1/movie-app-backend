@@ -32,7 +32,7 @@ async function fetchNConvToJSON(endpoint) {
     
     await page.goto(FINNKINO_URL + endpoint, { waitUntil: 'domcontentloaded' })
 
-    // parin sekunnin timeri varulta ettei varmasti tehdä liian nopeasti pyyntöjä
+    // tärkein osa..
     await new Promise((resolve) => setTimeout(resolve, 2000))
 
     // haetaan sivun sisältö ja muutetaan xml jsoniksi

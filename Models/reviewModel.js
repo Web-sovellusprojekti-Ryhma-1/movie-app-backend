@@ -7,7 +7,7 @@ const selectAllReviewsByUserId = async (user_id) => {
 
 // List all movie's reviews
 const selectAllReviewsByMovieId = async (tmdb_id) => {
-    return await pool.query('SELECT * FROM favorites WHERE tmdb_id = $1', [tmdb_id])
+    return await pool.query('SELECT * FROM reviews WHERE tmdb_id = $1', [tmdb_id])
 }
 
 const insertReview = async (user_id, title, body, rating, tmdb_id) => {
