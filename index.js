@@ -26,6 +26,10 @@ app.use('/api/finnkino', finnkinoRouter) // finnkino api
 
 app.use('/api/user', userRouter)
 
+app.use('/api/favorites', userRouter)
+
+app.use('/api/reviews', userRouter)
+
 app.use('/api/group', groupRouter)
 
 app.use(errorHandler)

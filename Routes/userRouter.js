@@ -37,47 +37,4 @@ Request body should look like this:
 router.delete("/deletecurrentuser", auth, deleteCurrentUser)
 
 
-// Favorites
-router.get("/:id/favorites", getUserFavorites)
-
-router.post("/favorites", auth, postCurrentUserFavorite)
-// User needs to be logged in
-/*
-Request body should look like this:
-{
-    "tmdb_id": "99"
-}
-*/
-
-router.delete("/favorites/:id", auth, deleteCurrentUserFavorite)
-// User needs to be logged in
-
-
-
-
-// Reviews
-router.get("/:id/reviews", getUserReviews)
-
-
-router.post("/reviews", auth, postCurrentUserReview)
-// User needs to be logged in
-/*
-Request body should look like this:
-{
-    "review": {
-        "title": "Movie Title",
-        "body": "My review of the movie",
-        "rating": 3,
-        "tmdb_id": "99"
-    }
-    
-}
-*/
-
-router.delete("/reviews/:id", auth, deleteCurrentUserReview)
-// User needs to be logged in
-
-
-router.get("/movie/:id/reviews", getMovieReviews)
-
 export default router
