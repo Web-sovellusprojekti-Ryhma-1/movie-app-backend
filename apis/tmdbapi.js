@@ -94,5 +94,24 @@ apirouter.get("/genres", async (req, res) => {
   }
 })
 
+// suositut elokuvat tmdbn mukaan
+apirouter.get("/popular", async (req, res) => {
+  try {
+    const resp = await fetch(
+      "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",
+      {
+        headers: {
+          Authorization: `Bearer ${TMDB_BEARER}`,
+        },
+      }
+    );
+    const data = await resp.json();
+    res.json(data);
+  } catch (err) {
+    console.error("Error fetching popular movies from TMDB:", err);
+    res.status(500).json({ error: "Failed to fetch popular movies." });
+  }
+});
+
 export default apirouter;
 
