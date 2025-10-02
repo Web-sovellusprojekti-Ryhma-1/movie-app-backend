@@ -7,6 +7,8 @@ import userRouter from './Routes/userRouter.js'
 import apirouter from './apis/tmdbapi.js'
 import finnkinoRouter from './apis/finnkinoapi.js'
 import groupRouter from './Routes/groupRouter.js'
+import favoriteRouter from './Routes/favoriteRouter.js'
+import reviewRouter from './Routes/reviewRouter.js'
 
 dotenv.config()
 
@@ -26,9 +28,9 @@ app.use('/api/finnkino', finnkinoRouter) // finnkino api
 
 app.use('/api/user', userRouter)
 
-app.use('/api/favorites', userRouter)
+app.use('/api/favorite', favoriteRouter)
 
-app.use('/api/reviews', userRouter)
+app.use('/api/review', reviewRouter)
 
 app.use('/api/group', groupRouter)
 

@@ -8,7 +8,6 @@ import { validateUser } from '../Helpers/userInputValidation.js'
 const router = Router()
 
 
-// Users
 router.get("/:id", getUserById)
 
 router.post("/signup", validateUser, signUpUser)

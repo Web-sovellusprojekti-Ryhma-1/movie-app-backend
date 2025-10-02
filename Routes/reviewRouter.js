@@ -5,10 +5,9 @@ import { auth } from '../Helpers/authorization.js'
 const router = Router()
 
 
-
-// Reviews
 router.get("/user/:id", getUserReviews)
 
+router.get("/movie/:id", getMovieReviews)
 
 router.post("/", auth, postCurrentUserReview)
 // User needs to be logged in
@@ -28,7 +27,6 @@ Request body should look like this:
 router.delete("/:id", auth, deleteCurrentUserReview)
 // User needs to be logged in
 
-router.get("/movie/:id/reviews", getMovieReviews)
 
 
 export default router

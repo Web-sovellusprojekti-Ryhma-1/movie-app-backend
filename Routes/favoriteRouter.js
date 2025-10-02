@@ -5,7 +5,7 @@ import { auth } from '../Helpers/authorization.js'
 const router = Router()
 
 
-router.get("/:id", getUserFavorites)
+router.get("/user/:id", getUserFavorites)
 
 router.post("/", auth, postCurrentUserFavorite)
 // User needs to be logged in
