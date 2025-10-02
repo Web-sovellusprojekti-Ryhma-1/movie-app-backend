@@ -9,7 +9,7 @@ const insertGroup = async (group_name, owner_id) => {
 }
 
 const deleteGroup = async (id) => {
-    return await pool.query('DELETE FROM groups WHERE group_id = $1 returning *', [id])
+    return await pool.query('DELETE FROM groups WHERE id = $1 returning *', [id])
 }
 
 export { selectGroupById, insertGroup, deleteGroup }

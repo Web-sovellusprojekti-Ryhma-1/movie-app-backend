@@ -1,6 +1,7 @@
 import { selectGroupById, insertGroup, deleteGroup } from '../Models/groupModel.js'
 import handleResponse from '../Helpers/responseHandler.js'
 import { ApiError } from '../Helpers/ApiError.js'
+import { insertGroupMember } from '../Models/groupMembersModel.js';
 
 const getGroupById = async (req, res, next) => {
     const { id } = req.params
@@ -20,6 +21,8 @@ const createGroup = async (req, res, next) => {
     const owner_id = req.user.id
     try {
         const result = await insertGroup(group_name, owner_id)
+        await insertGroupMember(owner_id, result.rows[0].id, true)
+
         handleResponse(res, 201, 'Group created successfully', result.rows[0])
     } catch (error) {
         return next(error)
