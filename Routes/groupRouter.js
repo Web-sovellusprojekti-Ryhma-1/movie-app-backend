@@ -2,6 +2,8 @@ import { Router } from 'express'
 import { auth } from '../Helpers/authorization.js'
 import { getGroupById, createGroup, deleteGroupById } from '../Controllers/groupController.js'
 import { getGroupMembersByGroupId, getGroupMembersByUserId, addGroupMember, removeGroupMember, updateCurrentUserGroupMemberAccepted } from '../Controllers/groupMembersController.js'
+import { getAllGroupShowtimesByGroupId, addGroupShowtime, removeGroupShowtime } from '../Controllers/groupShowtimesController.js'
+
 
 const groupRouter = Router()
 
@@ -19,6 +21,8 @@ groupRouter.post('/', auth, createGroup)
 
 // Delete group
 groupRouter.delete('/:id', auth, deleteGroupById)
+
+
 
 // group member routet
 // Get group's all members by group id
@@ -44,5 +48,25 @@ groupRouter.post('/members', auth, addGroupMember)
 // Delete a member from a group
 groupRouter.delete('/:group_id/members/:user_id', auth, removeGroupMember)
 
+
+
+// Group showtimes
+// Get group's all showtimes
+groupRouter.get('/:group_id/showtime', auth, getAllGroupShowtimesByGroupId)
+
+// Add a showtime to a group
+groupRouter.post('/:group_id/showtime', auth, addGroupShowtime)
+/*
+{
+    "showtime": {
+        finnkino_db_id: "1",
+        area_id: "2",
+        dateofshow: 5-12-2025
+    }
+}
+*/
+
+// Delete showtime from a group
+groupRouter.delete('/:group_id/showtime/:showtime_id', auth, removeGroupShowtime)
 
 export default groupRouter;
