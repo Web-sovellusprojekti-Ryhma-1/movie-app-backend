@@ -1,4 +1,4 @@
-import { selectAllGroupMembersByGroupId, selectAllGroupMembersByUserId, insertGroupMember, deleteGroupMember } from '../Models/groupMembersModel.js'
+import { selectAllGroupMembersByGroupId, selectAllGroupMembersByUserId, updateGroupMemberAcceptedById, insertGroupMember, deleteGroupMember } from '../Models/groupMembersModel.js'
 import handleResponse from '../Helpers/responseHandler.js'
 import { ApiError } from '../Helpers/ApiError.js'
 
@@ -12,7 +12,7 @@ const getGroupMembersByGroupId = async (req, res, next) => {
     }
 };
 
-const getGroupsByUserId = async (req, res, next) => {
+const getGroupMembersByUserId = async (req, res, next) => {
     const { user_id } = req.params
     try {
         const result = await selectAllGroupMembersByUserId(user_id)
@@ -23,19 +23,27 @@ const getGroupsByUserId = async (req, res, next) => {
 };
 
 const addGroupMember = async (req, res, next) => {
-    const { group_id } = req.body
-    const user_id = req.user.id
+    const { member } = req.body
     try {
-        const result = await insertGroupMember(user_id, group_id, false)
+        const result = await insertGroupMember(member.user_id, member.group_id, false)
         handleResponse(res, 201, 'Group member added successfully', result.rows[0])
     } catch (error) {
         return next(error)
     }
 };
 
+const updateCurrentUserGroupMemberAccepted = async (req, res, next) => {
+    const { group_id } = req.params
+    try {
+        const result = await updateGroupMemberAcceptedById(group_id, req.user.id)
+        handleResponse(res, 201, 'Group member updated successfully', result.rows[0])
+    } catch (error) {
+        return next(error)
+    }
+};
+
 const removeGroupMember = async (req, res, next) => {
-    const { group_id } = req.body
-    const user_id = req.user.id
+    const { group_id, user_id } = req.params
     try {
         const result = await deleteGroupMember(user_id, group_id)
         if (result.rowCount === 0) {
@@ -47,4 +55,4 @@ const removeGroupMember = async (req, res, next) => {
     }
 };
 
-export { getGroupMembersByGroupId, getGroupsByUserId, addGroupMember, removeGroupMember };
+export { getGroupMembersByGroupId, getGroupMembersByUserId, addGroupMember, updateCurrentUserGroupMemberAccepted, removeGroupMember };
