@@ -61,17 +61,34 @@ finnkinoRouter.get('/theatre-areas', async (req, res) => {
 
 // elokuvat tietyssä valitussa teatterissa
 finnkinoRouter.get('/movies', async (req, res) => {
-  const { areaId } = req.query
+  const { areaId } = req.query;
   if (!areaId) {
-    return res.status(400).json({ error: 'areaId is required' })
+    return res.status(400).json({ error: 'areaId is required' });
   }
 
   try {
-    const jsonData = await fetchNConvToJSON(`Schedule/?area=${areaId}`)
-    res.status(200).json(jsonData)
+    const jsonData = await fetchNConvToJSON(`Schedule/?area=${areaId}`);
+    console.log('Movies API Response:', JSON.stringify(jsonData, null, 2)); // Debugging log
+
+    const shows = jsonData.Schedule.Shows.Show.map((show) => {
+      return {
+        title: show.Title,
+        showtime: show.dttmShowStart,
+        length: show.LengthInMinutes,
+        theatre: show.Theatre,
+        image: show.Images?.EventMediumImagePortrait || null,
+        genre: show.Genres || [],
+        auditorium: show.TheatreAuditorium || null,
+        rating: show.Rating || null,
+        presentationMethod: show.PresentationMethod || null,
+        language: show.Language || null,
+      };
+    });
+
+    res.status(200).json({ shows });
   } catch (error) {
-    console.error('Error in /movies:', error)
-    res.status(500).json({ error: error.message })
+    console.error('Error in /movies:', error);
+    res.status(500).json({ error: error.message });
   }
 })
 
