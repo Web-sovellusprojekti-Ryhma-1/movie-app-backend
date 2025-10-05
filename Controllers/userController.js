@@ -66,8 +66,7 @@ const signInUser = async (req, res,next) => {
 
         const token = jwt.sign(
             { id: dbUser.id, username: dbUser.username, email: dbUser.email  },
-            process.env.JWT_SECRET_KEY,
-            {expiresIn: "1h"}
+            process.env.JWT_SECRET_KEY
         )
 
         const showResult = {
