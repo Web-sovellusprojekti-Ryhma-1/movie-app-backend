@@ -1,14 +1,15 @@
-import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
-import { pool } from './Helpers/db.js'
-import errorHandler from './Helpers/errorHandler.js'
-import userRouter from './Routes/userRouter.js'
-import apirouter from './apis/tmdbapi.js'
+import express from 'express'
 import finnkinoRouter from './apis/finnkinoapi.js'
-import groupRouter from './Routes/groupRouter.js'
+import apirouter from './apis/tmdbapi.js'
+import {pool} from './Helpers/db.js'
+import errorHandler from './Helpers/errorHandler.js'
 import favoriteRouter from './Routes/favoriteRouter.js'
+import groupRouter from './Routes/groupRouter.js'
+import matchRouter from './Routes/matchRouter.js'
 import reviewRouter from './Routes/reviewRouter.js'
+import userRouter from './Routes/userRouter.js'
 
 dotenv.config()
 
@@ -33,11 +34,12 @@ app.use('/api/favorite', favoriteRouter)
 app.use('/api/review', reviewRouter)
 
 app.use('/api/group', groupRouter)
+app.use('/api/match', matchRouter)
 
 app.use(errorHandler)
 
 // Test database connection
-app.get("/db", async(req, res) => {
+app.get("/db", async (req, res) => {
     const result = await pool.query("SELECT current_database()")
     res.send(`The database name is: ${result.rows[0].current_database}`)
 })
