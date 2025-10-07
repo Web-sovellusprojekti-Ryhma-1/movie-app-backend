@@ -50,7 +50,7 @@ const signInUser = async (req, res,next) => {
     const { user } = req.body
     try {
         if (!user || !user.email || !user.password) {
-            return new ApiError("Email and password are required", 400)
+            throw new ApiError("Email and password are required", 400)
         }
         
         const result = await selectUserByEmail(user.email)

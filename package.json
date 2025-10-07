@@ -19,7 +19,13 @@
   "main": "index.js",
   "scripts": {
     "test": "node --test",
-    "devStart": "nodemon index.js"
+    "devStart": "nodemon index.js",
+    "testStart": "nodemon tests/index.test.js",
+    "api:test": "node --test --test-timeout=30000 --test-reporter=spec tests/userAuth.test.js tests/reviews.test.js",
+    "api:test:auth": "node --test --test-timeout=30000 --test-reporter=spec tests/userAuth.test.js",
+    "api:test:reviews": "node --test --test-timeout=30000 --test-reporter=spec tests/reviews.test.js",
+    "api:test:watch": "node --test --test-timeout=30000 --test-reporter=spec --watch tests/userAuth.test.js tests/reviews.test.js"
+    
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
