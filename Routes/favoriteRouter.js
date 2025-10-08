@@ -16,7 +16,7 @@ Request body should look like this:
 }
 */
 
-router.delete("/:id", auth, deleteCurrentUserFavorite)
+router.delete("/:tmdb_id", auth, deleteCurrentUserFavorite)
 // User needs to be logged in
 
 export default router

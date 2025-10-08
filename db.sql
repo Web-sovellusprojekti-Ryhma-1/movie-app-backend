@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS favorites (
 -- Reviews table
 CREATE TABLE IF NOT EXISTS reviews (
     user_id BIGINT NOT NULL,
+    user_email VARCHAR(320) NOT NULL,
     title VARCHAR(255) NOT NULL,
     body TEXT NOT NULL,
     rating SMALLINT NOT NULL CHECK (rating BETWEEN 1 AND 5),

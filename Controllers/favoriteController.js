@@ -29,7 +29,7 @@ const deleteCurrentUserFavorite = async (req, res, next) => {
     const { tmdb_id } = req.params
     try {
         const result = await deleteFavorite(req.user.id, tmdb_id)
-
+        
         if (result.rows.length === 0) {
             throw new ApiError("Favorite not found", 404)
         }

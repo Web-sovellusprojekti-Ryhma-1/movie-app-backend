@@ -30,8 +30,9 @@ const postCurrentUserReview = async (req, res,next) => {
         if (review.rating < 1 || review.rating > 5) {
             throw new ApiError("Rating must be between 1-5", 400)
         }
+        
 
-        const result = await insertReview(req.user.id, review.title, review.body, review.rating, review.tmdb_id)
+        const result = await insertReview(req.user.id, req.user.email, review.title, review.body, review.rating, review.tmdb_id)
         handleResponse(res, 201, "Review added successfully", result)
     } catch (error) {
         return next(error)
