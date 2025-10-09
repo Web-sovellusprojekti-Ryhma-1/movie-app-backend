@@ -1,4 +1,4 @@
-import { selectAllReviewsByUserId, selectAllReviewsByMovieId, insertReview, deleteReview } from "../Models/reviewModel.js"
+import { selectAllReviewsByUserId, selectAllReviewsByMovieId, insertReview, updateReview, deleteReview } from "../Models/reviewModel.js"
 import handleResponse from "../Helpers/responseHandler.js"
 import { ApiError } from "../Helpers/ApiError.js"
 
@@ -39,6 +39,21 @@ const postCurrentUserReview = async (req, res,next) => {
     }
 }
 
+// Only logged in user can make new reviews
+const putCurrentUserReview = async (req, res,next) => {
+    const { review } = req.body
+    try {
+        if (review.rating < 1 || review.rating > 5) {
+            throw new ApiError("Rating must be between 1-5", 400)
+        }
+        
+        const result = await updateReview(req.user.id, review.tmdb_id, review.title, review.body, review.rating)
+        handleResponse(res, 201, "Review updated successfully", result)
+    } catch (error) {
+        return next(error)
+    }
+}
+
 // Only logged in user can delete reviews they have made
 const deleteCurrentUserReview = async (req, res, next) => {
     const { id } = req.params
@@ -55,4 +70,4 @@ const deleteCurrentUserReview = async (req, res, next) => {
     }
 }
 
-export { getUserReviews, getMovieReviews, postCurrentUserReview, deleteCurrentUserReview }
+export { getUserReviews, getMovieReviews, postCurrentUserReview, putCurrentUserReview, deleteCurrentUserReview }

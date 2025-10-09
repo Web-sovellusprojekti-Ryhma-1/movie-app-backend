@@ -25,7 +25,6 @@
     "api:test:auth": "node --test --test-timeout=30000 --test-reporter=spec tests/userAuth.test.js",
     "api:test:reviews": "node --test --test-timeout=30000 --test-reporter=spec tests/reviews.test.js",
     "api:test:watch": "node --test --test-timeout=30000 --test-reporter=spec --watch tests/userAuth.test.js tests/reviews.test.js"
-    
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
@@ -41,5 +40,9 @@
     "puppeteer": "^24.22.0",
     "puppeteer-extra": "^3.3.6",
     "puppeteer-extra-plugin-stealth": "^2.11.2"
+  },
+  "devDependencies": {
+    "chai": "^6.2.0",
+    "mocha": "^11.7.4"
   }
 }
