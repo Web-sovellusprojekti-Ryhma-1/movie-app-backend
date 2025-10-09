@@ -1,3 +1,11 @@
+-- Create schema if it doesn't exist
+DO $$ 
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM information_schema.schemata WHERE schema_name = 'movie_app') THEN
+        CREATE SCHEMA movie_app;
+    END IF;
+END $$;
+
 -- Users table
 CREATE TABLE IF NOT EXISTS users (
     id BIGSERIAL PRIMARY KEY,
