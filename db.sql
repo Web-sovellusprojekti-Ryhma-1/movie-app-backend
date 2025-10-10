@@ -6,6 +6,8 @@ BEGIN
     END IF;
 END $$;
 
+SET search_path TO movie_app;
+
 -- Users table
 CREATE TABLE IF NOT EXISTS users (
     id BIGSERIAL PRIMARY KEY,

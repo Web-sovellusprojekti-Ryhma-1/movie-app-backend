@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { deleteCurrentUserReview, getMovieReviews, getUserReviews, postCurrentUserReview } from '../Controllers/reviewController.js'
+import { deleteCurrentUserReview, getMovieReviews, getUserReviews, putCurrentUserReview, postCurrentUserReview } from '../Controllers/reviewController.js'
 import { auth } from '../Helpers/authorization.js'
 
 const router = Router()
@@ -24,7 +24,7 @@ Request body should look like this:
 }
 */
 
-router.put("/", auth, getUserReviews)
+router.put("/", auth, putCurrentUserReview)
 // User needs to be logged in
 /*
 Request body should look like this:
