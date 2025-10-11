@@ -1,7 +1,18 @@
-import { selectGroupById, insertGroup, deleteGroup } from '../Models/groupModel.js'
+import { selectAllGroups, selectGroupById, insertGroup, deleteGroup, updateGroup } from '../Models/groupModel.js'
 import handleResponse from '../Helpers/responseHandler.js'
 import { ApiError } from '../Helpers/ApiError.js'
 import { insertGroupMember } from '../Models/groupMembersModel.js';
+
+
+const getAllGroups = async (req, res, next) => {
+    try {
+        const result = await selectAllGroups()
+
+        handleResponse(res, 200, 'Groups retrieved successfully', result)
+    } catch (error) {
+        return next(error)
+    }
+};
 
 const getGroupById = async (req, res, next) => {
     const { id } = req.params
@@ -29,6 +40,18 @@ const createGroup = async (req, res, next) => {
     }
 };
 
+const putGroup = async (req, res, next) => {
+    const { group_name } = req.body
+    const { id } = req.params
+    try {
+        const result = await updateGroup(group_name, id)
+
+        handleResponse(res, 201, 'Group updated successfully', result.rows[0])
+    } catch (error) {
+        return next(error)
+    }
+};
+
 const deleteGroupById = async (req, res, next) => {
     const { id } = req.params
     try {
@@ -42,4 +65,4 @@ const deleteGroupById = async (req, res, next) => {
     }
 };
 
-export { getGroupById, createGroup, deleteGroupById };
+export { getAllGroups, getGroupById, createGroup, putGroup, deleteGroupById };
