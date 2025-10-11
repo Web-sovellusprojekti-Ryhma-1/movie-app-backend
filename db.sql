@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS groups (
     id BIGSERIAL PRIMARY KEY,
     group_name VARCHAR(255) NOT NULL UNIQUE,
     owner_id BIGINT NOT NULL,
-    FOREIGN KEY (owner_id) REFERENCES users(id)
+    FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 -- Group members table
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS group_members (
     accepted BOOLEAN NOT NULL,
     PRIMARY KEY (user_id, group_id),
     FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (group_id) REFERENCES groups(id)
+    FOREIGN KEY (group_id) REFERENCES groups(id) ON DELETE CASCADE
 );
 
 -- Group showtimes table
@@ -63,5 +63,5 @@ CREATE TABLE IF NOT EXISTS group_showtimes (
     area_id INTEGER NOT NULL, 
     dateOfShow DATE NOT NULL, --Format: dd.mm.yyyy
     PRIMARY KEY (group_id, finnkino_db_id, area_id, dateOfShow), 
-    FOREIGN KEY (group_id) REFERENCES groups(id)
+    FOREIGN KEY (group_id) REFERENCES groups(id) ON DELETE CASCADE
 );
