@@ -44,6 +44,16 @@ const putGroup = async (req, res, next) => {
     const { group_name } = req.body
     const { id } = req.params
     try {
+        const response = await selectGroupById(id)
+        if (response.length === 0) {
+            throw new ApiError('Group not found', 404)
+        }
+        const group = response.rows[0]
+
+        if (req.user.id != group.owner_id) {
+            throw new ApiError('Only the group owner can edit group', 403)
+        }
+
         const result = await updateGroup(group_name, id)
 
         handleResponse(res, 201, 'Group updated successfully', result.rows[0])
@@ -55,10 +65,18 @@ const putGroup = async (req, res, next) => {
 const deleteGroupById = async (req, res, next) => {
     const { id } = req.params
     try {
-        const result = await deleteGroup(id)
-        if (result.rowCount === 0) {
+        const response = await selectGroupById(id)
+        if (response.length === 0) {
             throw new ApiError('Group not found', 404)
         }
+        const group = response.rows[0]
+
+        if (req.user.id != group.owner_id) {
+            throw new ApiError('Only the group owner can delete the group', 403)
+        }
+
+        const result = await deleteGroup(id)
+
         handleResponse(res, 200, 'Group deleted successfully')
     } catch (error) {
         return next(error)
