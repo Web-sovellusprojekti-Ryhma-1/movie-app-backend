@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS group_members (
     group_id BIGINT NOT NULL,
     accepted BOOLEAN NOT NULL,
     PRIMARY KEY (user_id, group_id),
-    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (group_id) REFERENCES groups(id) ON DELETE CASCADE
 );
 
@@ -61,7 +61,8 @@ CREATE TABLE IF NOT EXISTS group_showtimes (
     group_id BIGINT NOT NULL,
     finnkino_db_id BIGINT NOT NULL,
     area_id INTEGER NOT NULL, 
-    dateOfShow DATE NOT NULL, --Format: dd.mm.yyyy
-    PRIMARY KEY (group_id, finnkino_db_id, area_id, dateOfShow), 
+    dateOfShow DATE NOT NULL,
+    timeOfShow TIME NOT NULL,
+    PRIMARY KEY (group_id, finnkino_db_id, area_id, dateOfShow, timeOfShow), 
     FOREIGN KEY (group_id) REFERENCES groups(id) ON DELETE CASCADE
 );

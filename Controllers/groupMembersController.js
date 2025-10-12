@@ -1,6 +1,7 @@
 import { selectAllGroupMembersByGroupId, selectAllGroupMembersByUserId, updateGroupMemberAcceptedById, insertGroupMember, deleteGroupMember } from '../Models/groupMembersModel.js'
 import handleResponse from '../Helpers/responseHandler.js'
 import { ApiError } from '../Helpers/ApiError.js'
+import { selectGroupById } from '../Models/groupModel.js';
 
 const getGroupMembersByGroupId = async (req, res, next) => {
     const { group_id } = req.params
@@ -25,6 +26,16 @@ const getGroupMembersByUserId = async (req, res, next) => {
 const addGroupMember = async (req, res, next) => {
     const { member } = req.body
     try {
+        const response = await selectGroupById(member.group_id)
+        if (response.rows.length === 0) {
+            throw new ApiError('Group not found', 404)
+        }
+        const group = response.rows[0]
+
+        if (req.user.id != group.owner_id) {
+            throw new ApiError('Only the group owner can add new members', 403)
+        }
+
         const result = await insertGroupMember(member.user_id, member.group_id, false)
         handleResponse(res, 201, 'Group member added successfully', result.rows[0])
     } catch (error) {
