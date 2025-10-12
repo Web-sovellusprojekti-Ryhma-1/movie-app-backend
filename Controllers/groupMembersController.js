@@ -27,7 +27,7 @@ const addGroupMember = async (req, res, next) => {
     const { member } = req.body
     try {
         const response = await selectGroupById(member.group_id)
-        if (response.length === 0) {
+        if (response.rows.length === 0) {
             throw new ApiError('Group not found', 404)
         }
         const group = response.rows[0]

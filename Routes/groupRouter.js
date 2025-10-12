@@ -70,9 +70,10 @@ groupRouter.post('/:group_id/showtime', auth, addGroupShowtime)
 /*
 {
     "showtime": {
-        finnkino_db_id: "1",
-        area_id: "2",
-        dateofshow: 5-12-2025
+        "finnkino_db_id": "1",
+        "area_id": "2",
+        "dateofshow": "5-12-2025",
+        "timeofshow": "10:30"
     }
 }
 */

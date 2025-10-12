@@ -20,7 +20,7 @@ const addGroupShowtime = async (req, res, next) => {
     const { showtime } = req.body
     try {
         const response = await selectAllGroupMembersByGroupId(group_id)
-        if (response.length === 0) {
+        if (response.rows.length === 0) {
             throw new ApiError('Group does not have members', 404)
         }
         const members = response.rows
@@ -31,7 +31,7 @@ const addGroupShowtime = async (req, res, next) => {
             throw new ApiError('User is not a member of this group', 403);
         }
 
-        const result = await insertGroupShowtime(group_id, showtime.finnkino_db_id, showtime.area_id, showtime.dateofshow)
+        const result = await insertGroupShowtime(group_id, showtime.finnkino_db_id, showtime.area_id, showtime.dateofshow, showtime.timeofshow)
         handleResponse(res, 201, 'Group showtime added successfully', result.rows[0])
     } catch (error) {
         return next(error)
@@ -43,7 +43,7 @@ const removeGroupShowtime = async (req, res, next) => {
     const { group_id, showtime_id } = req.params
     try {
         const response = await selectGroupById(group_id)
-        if (response.length === 0) {
+        if (response.rows.length === 0) {
             throw new ApiError('Group not found', 404)
         }
         const group = response.rows[0]

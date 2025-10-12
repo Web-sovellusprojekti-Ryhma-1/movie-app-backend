@@ -45,7 +45,7 @@ const putGroup = async (req, res, next) => {
     const { id } = req.params
     try {
         const response = await selectGroupById(id)
-        if (response.length === 0) {
+        if (response.rows.length === 0) {
             throw new ApiError('Group not found', 404)
         }
         const group = response.rows[0]
@@ -66,7 +66,7 @@ const deleteGroupById = async (req, res, next) => {
     const { id } = req.params
     try {
         const response = await selectGroupById(id)
-        if (response.length === 0) {
+        if (response.rows.length === 0) {
             throw new ApiError('Group not found', 404)
         }
         const group = response.rows[0]
