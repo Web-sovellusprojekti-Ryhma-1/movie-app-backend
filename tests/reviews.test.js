@@ -22,12 +22,14 @@ describe("Review Browsing Tests", () => {
     await createTestReview(userA.id, {
       title: "Shared Movie A",
       body: "User A review for shared movie",
+      user_email: userA.email,
       rating: 4,
       tmdb_id: movieIdShared,
     })
     await createTestReview(userB.id, {
       title: "Shared Movie B",
       body: "User B review for shared movie",
+      user_email: userB.email,
       rating: 3,
       tmdb_id: movieIdShared,
     })
@@ -36,6 +38,7 @@ describe("Review Browsing Tests", () => {
     await createTestReview(userA.id, {
       title: "Another Movie",
       body: "User A review for another movie",
+      user_email: userA.email,
       rating: 5,
       tmdb_id: movieIdOther,
     })

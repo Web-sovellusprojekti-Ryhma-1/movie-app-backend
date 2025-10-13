@@ -68,8 +68,8 @@ export async function getToken(userOrEmail) {
 
 export async function createTestReview(userId, review) {
   const result = await pool.query(
-    'INSERT INTO reviews (user_id, title, body, rating, tmdb_id) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-    [userId, review.title, review.body, review.rating, review.tmdb_id]
+    'INSERT INTO reviews (user_id, title, body, rating, tmdb_id, user_email) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+    [userId, review.title, review.body, review.rating, review.tmdb_id, review.user_email]
   )
   return result.rows[0]
 }
