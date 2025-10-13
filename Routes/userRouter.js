@@ -1,12 +1,16 @@
 import { Router } from 'express'
-import { getUserById, signUpUser, signInUser, deleteCurrentUser } from '../Controllers/userController.js'
-import { getUserFavorites, postCurrentUserFavorite, deleteCurrentUserFavorite } from '../Controllers/favoriteController.js'
-import { deleteCurrentUserReview, getMovieReviews, getUserReviews, postCurrentUserReview } from '../Controllers/reviewController.js'
+import { getUserByEmail, getUserById, signUpUser, signInUser, deleteCurrentUser } from '../Controllers/userController.js'
 import { auth } from '../Helpers/authorization.js'
 import { validateUser } from '../Helpers/userInputValidation.js'
 
 const router = Router()
 
+router.get("/email", getUserByEmail)
+/*
+{
+    "email": "myemail"
+}
+*/
 
 router.get("/:id", getUserById)
 

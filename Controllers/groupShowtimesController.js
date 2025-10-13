@@ -31,7 +31,7 @@ const addGroupShowtime = async (req, res, next) => {
             throw new ApiError('User is not a member of this group', 403);
         }
 
-        const result = await insertGroupShowtime(group_id, showtime.finnkino_db_id, showtime.area_id, showtime.dateofshow, showtime.timeofshow)
+        const result = await insertGroupShowtime(group_id, showtime.finnkino_db_id, showtime.area_id, showtime.dateofshow, showtime.timeofshow, showtime.movie_name, showtime.movie_area)
         handleResponse(res, 201, 'Group showtime added successfully', result.rows[0])
     } catch (error) {
         return next(error)
