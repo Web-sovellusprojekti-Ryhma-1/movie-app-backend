@@ -61,6 +61,8 @@ CREATE TABLE IF NOT EXISTS group_showtimes (
     group_id BIGINT NOT NULL,
     finnkino_db_id BIGINT NOT NULL,
     area_id INTEGER NOT NULL, 
+    movie_name VARCHAR(255) NOT NULL,
+    movie_area VARCHAR(255) NOT NULL,
     dateOfShow DATE NOT NULL,
     timeOfShow TIME NOT NULL,
     PRIMARY KEY (group_id, finnkino_db_id, area_id, dateOfShow, timeOfShow), 

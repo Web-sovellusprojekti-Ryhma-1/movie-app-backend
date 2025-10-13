@@ -7,6 +7,8 @@ const selectAllGroupShowtimesByGroupId = async (group_id) => {
       id,
       group_id,
       finnkino_db_id,
+      movie_name,
+      movie_area,
       area_id,
       dateOfShow,
       TO_CHAR(timeofshow, 'HH24:MI') AS timeofshow
@@ -16,8 +18,8 @@ const selectAllGroupShowtimesByGroupId = async (group_id) => {
   `, [group_id])
 }
 
-const insertGroupShowtime = async (group_id, finnkino_db_id, area_id, dateofshow, timeofshow) => {
-    return await pool.query('INSERT INTO group_showtimes (group_id, finnkino_db_id, area_id, dateofshow, timeofshow) VALUES ($1, $2, $3, $4, $5) returning *', [group_id, finnkino_db_id, area_id, dateofshow, timeofshow])
+const insertGroupShowtime = async (group_id, finnkino_db_id, area_id, dateofshow, timeofshow, movie_name, movie_area) => {
+    return await pool.query('INSERT INTO group_showtimes (group_id, finnkino_db_id, area_id, dateofshow, timeofshow, movie_name, movie_area) VALUES ($1, $2, $3, $4, $5, $6, $7) returning *', [group_id, finnkino_db_id, area_id, dateofshow, timeofshow, movie_name, movie_area])
 }
 
 const deleteGroupShowtime = async (group_id, showtime_id) => {

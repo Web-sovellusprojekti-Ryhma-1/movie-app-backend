@@ -1,4 +1,4 @@
-import { selectAllUsers, selectUserByEmail, insertUser, deleteUserByEmail, selectUserById } from "../Models/userModel.js"
+import { selectUserByEmail, insertUser, deleteUserByEmail, selectUserById } from "../Models/userModel.js"
 import handleResponse from "../Helpers/responseHandler.js"
 import { compare, hash } from "bcrypt"
 import { ApiError } from "../Helpers/ApiError.js"
@@ -11,6 +11,28 @@ const getUserById = async (req, res, next) => {
     const { id } = req.params
     try {
         const result = await selectUserById(id)
+
+        const dbUser = result.rows[0]
+
+        const showResult = {
+            id: dbUser.id,
+            username: dbUser.username,
+            email: dbUser.email,
+        }
+
+        handleResponse(res, 200, "User returned successfully", showResult)
+    } catch (error) {
+        return next(error)
+    }
+}
+
+const getUserByEmail = async (req, res, next) => {
+    const { email } = req.query
+    try {
+        const result = await selectUserByEmail(email)
+        if (result.rows.length === 0) {
+            throw new ApiError("User does not exist", 404)
+        }
 
         const dbUser = result.rows[0]
 
@@ -105,4 +127,4 @@ const deleteCurrentUser = async (req, res, next) => {
     }
 }
 
-export { getUserById, signUpUser, signInUser, deleteCurrentUser }
+export { getUserById, getUserByEmail, signUpUser, signInUser, deleteCurrentUser }
