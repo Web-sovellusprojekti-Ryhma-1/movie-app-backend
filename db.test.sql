@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS favorites (
 -- Reviews table
 CREATE TABLE IF NOT EXISTS reviews (
     user_id BIGINT NOT NULL,
+    user_email VARCHAR(320) NOT NULL,
     title VARCHAR(255) NOT NULL,
     body TEXT NOT NULL,
     rating SMALLINT NOT NULL CHECK (rating BETWEEN 1 AND 5),
@@ -42,7 +43,7 @@ CREATE TABLE IF NOT EXISTS groups (
     id BIGSERIAL PRIMARY KEY,
     group_name VARCHAR(255) NOT NULL UNIQUE,
     owner_id BIGINT NOT NULL,
-    FOREIGN KEY (owner_id) REFERENCES users(id)
+    FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 -- Group members table
@@ -51,8 +52,8 @@ CREATE TABLE IF NOT EXISTS group_members (
     group_id BIGINT NOT NULL,
     accepted BOOLEAN NOT NULL,
     PRIMARY KEY (user_id, group_id),
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (group_id) REFERENCES groups(id)
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (group_id) REFERENCES groups(id) ON DELETE CASCADE
 );
 
 -- Group showtimes table
@@ -61,7 +62,10 @@ CREATE TABLE IF NOT EXISTS group_showtimes (
     group_id BIGINT NOT NULL,
     finnkino_db_id BIGINT NOT NULL,
     area_id INTEGER NOT NULL, 
-    dateOfShow DATE NOT NULL, --Format: dd.mm.yyyy
-    PRIMARY KEY (group_id, finnkino_db_id, area_id, dateOfShow), 
-    FOREIGN KEY (group_id) REFERENCES groups(id)
+    movie_name VARCHAR(255) NOT NULL,
+    movie_area VARCHAR(255) NOT NULL,
+    dateOfShow DATE NOT NULL,
+    timeOfShow TIME NOT NULL,
+    PRIMARY KEY (group_id, finnkino_db_id, area_id, dateOfShow, timeOfShow), 
+    FOREIGN KEY (group_id) REFERENCES groups(id) ON DELETE CASCADE
 );
