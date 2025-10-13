@@ -7,9 +7,7 @@ const router = Router()
 
 router.get("/email", getUserByEmail)
 /*
-{
-    "email": "myemail"
-}
+api/user/email?email=myemail
 */
 
 router.get("/:id", getUserById)
